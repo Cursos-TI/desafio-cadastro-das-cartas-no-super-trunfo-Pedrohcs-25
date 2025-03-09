@@ -6,6 +6,7 @@
 // Siga os comentários para implementar cada parte do desafio.
 //Teste larissa
 
+
 int main() {
     // Sugestão: Defina variáveis separadas para cada atributo da cidade.
     // Exemplos de atributos: código da cidade, nome, população, área, PIB, número de pontos turísticos.
@@ -20,6 +21,10 @@ int main() {
     float c1_area, c2_area; // Area em Km² da cidade
     float c1_pib , c2_pib; // Produto interno bruto da cidade
     int c1_ponto_turistico, c2_ponto_turistico;
+    // variaveis para o nivel novato
+    float c1_densidade_pop, c2_densidade_pop; // Densidade Populacional
+    float c1_pib_cap, c2_pib_cap; // PIB per Capita  
+
 
     // Cadastro das Cartas:
     // Sugestão: Utilize a função scanf para capturar as entradas do usuário para cada atributo.
@@ -32,10 +37,10 @@ int main() {
     printf("----------------------------------------------\n");
     printf("|Carta 1|\n");
 
-    printf("|Em qual Estado a cidade é situada, lembrando responda com a inicial do Estado: ");
+    printf("|Em qual estado a cidade é situada, lembrando responda com a inicial do estado: ");
     scanf(" %c",&c1_estado);
 
-    printf("|Qual código da sua cidade, lembrando inicial do Estado\n|mais o código numerio de dois digitos: ");
+    printf("|Qual código da sua cidade, lembrando inicial do estado\n|mais o código de dois digitos: ");
     scanf("%s", c1_codigo);
 
     printf("|Quanto é a população da cidade: ");
@@ -59,10 +64,10 @@ int main() {
     printf("----------------------------------------------\n");
     printf("|Carta 2|\n");
 
-    printf("|Em qual Estado a cidade é situada, lembrando responda com a inicial do Estado: ");
+    printf("|Em qual estado a cidade é situada, lembrando responda com a inicial do estado: ");
     scanf(" %c",&c2_estado);
 
-    printf("|Qual código da sua cidade, lembrando inicial do Estado\n|mais o código numerio de dois digitos: ");
+    printf("|Qual código da sua cidade, lembrando inicial do estado\n|mais o código de dois digitos: ");
     scanf("%s", c2_codigo);
 
     printf("|Quanto é a população da cidade: ");
@@ -82,6 +87,17 @@ int main() {
     printf("----------------------------------------------\n\n");
 
 
+    //Calculo Das Cartas
+    //----------------------------------
+    // Densidade Populacional
+    c1_densidade_pop = (float) (c1_pop / c1_area);
+    c2_densidade_pop = (float) (c2_pop / c2_area);
+    // Pib per Capita
+    c1_pib_cap = (float)((c1_pib*1000000000)/c1_pop);
+    c2_pib_cap = (float)((c2_pib*1000000000)/c2_pop);
+    //Como aqui cada numero no pib está na casa dos bilhoes deve se mutipilcar por um bilhão
+
+
     // Exibição dos Dados das Cartas:
     // Sugestão: Utilize a função printf para exibir as informações das cartas cadastradas de forma clara e organizada.
     // Exiba os valores inseridos para cada atributo da cidade, um por linha.
@@ -97,17 +113,22 @@ int main() {
     printf("|Area: %.2fkm² \n",c1_area);
     printf("|PIB: %.2f bilhões de reais\n",c1_pib);
     printf("|Pontos turisticos na cidade: %d\n",c1_ponto_turistico);
+    printf("|Densidade Populacional: %.2fhab/km² \n",c1_densidade_pop);
+    printf("|PIB per Capita:: %.2f reais\n",c1_pib_cap);
+    
     printf("----------------------------------------------\n\n");
 
     printf("----------------------------------------------\n");
     printf("|Carta 2|\n");
     printf("|Estado: [%c] \n",c2_estado);
-    printf("|Código da cidade: |%s| \n",c2_codigo);
+    printf("|Código da   cidade: |%s| \n",c2_codigo);
     printf("|População: %d \n",c2_pop);
     printf("|Nome da cidade: %s \n",c2_nome_da_cidade);
     printf("|Area: %.2fkm² \n",c2_area);
     printf("|PIB: %.2f bilhões de reais\n",c2_pib);
     printf("|Pontos turisticos na cidade: %d\n",c2_ponto_turistico);
+    printf("|Densidade Populacional: %.2fhab/km² \n",c2_densidade_pop);
+    printf("|PIB per Capita:: %.2f reais\n",c2_pib_cap);
     printf("----------------------------------------------\n\n");
 
 
