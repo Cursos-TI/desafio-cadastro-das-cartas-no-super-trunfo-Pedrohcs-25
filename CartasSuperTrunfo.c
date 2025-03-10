@@ -12,7 +12,7 @@ int main() {
     // Exemplos de atributos: código da cidade, nome, população, área, PIB, número de pontos turísticos.
     
 
-    // Desafio nivel novato
+    // | Desafio nivel novato
     // As variaveis teram o prefixo c1 para carta Um e c2 para carta 2
     char c1_estado, c2_estado;// Letra inicial que representa o estado
     char c1_codigo[4], c2_codigo[4]; // Código da cidade inicado por uma letra e dois numero de 01 a 99
@@ -21,9 +21,18 @@ int main() {
     float c1_area, c2_area; // Area em Km² da cidade
     float c1_pib , c2_pib; // Produto interno bruto da cidade
     int c1_ponto_turistico, c2_ponto_turistico;
-    // variaveis para o nivel novato
+    // variaveis para o nivel avançado
     float c1_densidade_pop, c2_densidade_pop; // Densidade Populacional
     float c1_pib_cap, c2_pib_cap; // PIB per Capita  
+    // variaveis para o nivel Mestre
+    double c1_superpoder, c2_superpoder;
+
+    // comparações
+    // todas variaveis que iram guardar os resultados booleanos
+    short int comp_pop, comp_area,comp_pib,comp_pt,comp_den, comp_pibcap, comp_super, comp_final;
+    //Aqui são algumas implementações extras que acho que melhoram de certa forma o jogo
+    short int c1_pontuacao , c2_pontuacao;
+
 
 
     // Cadastro das Cartas:
@@ -86,7 +95,7 @@ int main() {
     scanf("%d", &c2_ponto_turistico);
     printf("----------------------------------------------\n\n");
 
-
+    // || Nivel Avançado
     //Calculo Das Cartas
     //----------------------------------
     // Densidade Populacional
@@ -97,11 +106,18 @@ int main() {
     c2_pib_cap = (float)((c2_pib*1000000000)/c2_pop);
     //Como aqui cada numero no pib está na casa dos bilhoes deve se mutipilcar por um bilhão
 
+    // ||| Nivel mestre
+    // Opinião: Professor acredito que uma forma que seria mais bonita de formata quem venceu a partida seria fazendo o inverso, 
+    // da seguinte forma quanto for falso ou seja (0) a carta um vence o motivo disso é que se somarmos 1 nesse resultado podemos
+    // formatar o vencedor de forma correta pois se o dois ganha sairia (1) somando mais 1 ficaria 2 o mesmo numero da carta ou seja 
+    // em um printf("Carta %d venceu", variavel).
+    //Super poder 
+    c1_superpoder = (c1_pib+c1_area+c1_ponto_turistico+c1_pop+c1_pib_cap+(1/c1_densidade_pop));
+    c2_superpoder = (c2_pib+c2_area+c2_ponto_turistico+c2_pop+c2_pib_cap+(1/c2_densidade_pop));
 
     // Exibição dos Dados das Cartas:
     // Sugestão: Utilize a função printf para exibir as informações das cartas cadastradas de forma clara e organizada.
     // Exiba os valores inseridos para cada atributo da cidade, um por linha.
-
     printf("Cartas cadrastradas: 2 \n\n");
 
     printf("----------------------------------------------\n");
@@ -115,7 +131,7 @@ int main() {
     printf("|Pontos turisticos na cidade: %d\n",c1_ponto_turistico);
     printf("|Densidade Populacional: %.2fhab/km² \n",c1_densidade_pop);
     printf("|PIB per Capita:: %.2f reais\n",c1_pib_cap);
-    
+    printf("|Super Poder: %.3f  \n",c1_superpoder);
     printf("----------------------------------------------\n\n");
 
     printf("----------------------------------------------\n");
@@ -129,8 +145,50 @@ int main() {
     printf("|Pontos turisticos na cidade: %d\n",c2_ponto_turistico);
     printf("|Densidade Populacional: %.2fhab/km² \n",c2_densidade_pop);
     printf("|PIB per Capita:: %.2f reais\n",c2_pib_cap);
+    printf("|Super Poder: %.3f  \n",c2_superpoder);
     printf("----------------------------------------------\n\n");
 
+
+    // Aqui ficará o calculo das comparações --------
+
+    comp_pop= c1_pop < c2_pop;
+    comp_area= c1_area < c2_area;
+    comp_pib= c1_pib < c2_pib;
+    comp_pt= c1_ponto_turistico <  c2_ponto_turistico;
+    comp_den=c1_densidade_pop > c2_densidade_pop; // Quem tem maior vai perder, então a gente inverte
+    comp_pibcap= c1_pib_cap < c2_pib_cap;
+    comp_super= c1_superpoder< c2_superpoder;
+
+    // Vamos agora fazer a pontuação
+    int soma_pontos = comp_pop++ + comp_area++ + comp_pib++ + comp_pt++ + comp_den++ + comp_pibcap++ + comp_super++;
+    // o motivo do pós incremento é para já formatar para na saida está formatado como carta 1 ou 2 não carta  0 ou 1
+
+    c1_pontuacao = 7 - soma_pontos; // A logica aqui é simples quanto mais um acertar menor é a soma de pontos já que a cada 0 é um ponto dele
+    c2_pontuacao = 0 + soma_pontos; // Sei que não é nescessario somar com 0 mas ficou legal o contraste com o de cima 
+    
+    comp_final=  c1_pontuacao<c2_pontuacao;
+    comp_final++;
+
+
+    //Saida das comparações
+    printf("----------------------------------------------\n");
+    printf("|Comparação|\n");
+    printf("|Cidades:  %s (carta 1) X %s (carta 2)\n",c1_nome_da_cidade,c2_nome_da_cidade);
+    printf("|População:| %d X %d | Vencendor Carta %d\n",c1_pop, c2_pop , comp_pop);
+    printf("|Area: |%.2fkm² X %.2fkm²| Vencendor Carta %d \n",c1_area, c2_area, comp_area);
+    printf("|PIB: |R$%.2fB X R$%.2fB| Vencendor Carta %d \n",c1_pib, c2_pib, comp_pib);
+    printf("|Pontos turisticos: |%d X %d| Vencendor Carta %d \n",c1_ponto_turistico,  c2_ponto_turistico, comp_pt);
+    printf("|Densidade Populacional: |%.2fhab/km² X %.2fhab/km²| Vencendor Carta %d\n",c1_densidade_pop, c2_densidade_pop, comp_den);
+    printf("|PIB per Capita:: |R$%.2f X R$%.2f| Vencendor Carta %d \n",c1_pib_cap,c2_pib_cap,comp_pibcap);
+    printf("|Super Poder: |%.3f X %.3f| Vencendor Carta %d  \n",c1_superpoder,c2_superpoder,comp_super);
+    printf("----------------------------------------------\n\n");
+
+
+    printf("----------------------------------------------\n");
+    printf("|A Carta 1 fez %d pontos e a Carta 2 fez %d pontos o vencedor foi.....|\n",c1_pontuacao,c2_pontuacao);
+    printf("| - Carta %d - Parabens Você venceu essa rodada do Super trunfo.\n",comp_final);
+    printf("----------------------------------------------\n\n\n");
+    printf("-\n");
 
     return 0;
 }
